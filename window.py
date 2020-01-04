@@ -1,5 +1,7 @@
-from PyQt5.QtWidgets import (QWidget, QHBoxLayout, QFrame, QLabel, QSplitter, QStyleFactory, QApplication, QComboBox, QLineEdit, QVBoxLayout, QPushButton)
+from PyQt5.QtWidgets import (QWidget, QHBoxLayout, QFrame, QLabel, QSplitter, QStyleFactory, QApplication, QComboBox, QLineEdit)
 from PyQt5.QtCore import Qt
+from currency_converter import CurrencyConverter
+from currency_list import list
 import sys
 
 class Converter(QWidget):
@@ -9,45 +11,44 @@ class Converter(QWidget):
         QWidget.__init__(self)
         self.initUI()
 
-    def initUI(self):      
+    def initUI(self):
+        # name of the window program
+        self.setWindowTitle('Currency Converter')
 
-        # Label displays
-        self.lbl = QLabel("App to convert some currencies", self)
+        # initialise the currency converter 
+        c = CurrencyConverter()
 
-        # First checkbox
+        # display a title at the beginning of the program
+        self.lbl = QLabel("Currency Convert", self)
 
-        hLayout = QHBoxLayout()
+        # create checkbox of currencies
         comboCurrencyLeft = QComboBox()
-        comboCurrencyLeft.addItem("C")
-        comboCurrencyLeft.addItem("C++")
+        comboCurrencyRight = QComboBox()
 
-        # self.comboCurrencyLeft = QComboBox(self)
-        # self.comboCurrencyLeft.addItem("Valentin")
-        # self.comboCurrencyLeft.addItem("Antoine")
-        # self.comboCurrencyLeft.addItem("Nicole")
-        # self.comboCurrencyLeft.addItem("Michel")
+        # initalize the chexbox positions
+        comboCurrencyLeft.move(50, 50)
+        comboCurrencyRight.move(200, 50)
 
-        # Secound Checkbox
-        comboCurrencyRight = QComboBox(self)
-        comboCurrencyRight.addItem("CHEVREAU")
-        comboCurrencyRight.addItem("SAMARCQ")
+        # retrieve
+        for key in list.keys():
+            # add current currency to checkbox
+            comboCurrencyLeft.addItem(key)
+            comboCurrencyRight.addItem(key)
+        comboCurrencyLeft.setGeometry(50, 50, 50, 50)        
         comboCurrencyRight.setGeometry(50, 50, 50, 50)
 
         self.firstCurrency = QLineEdit()
-        # champ.show()
         self.secundCurrency = QLineEdit()
-        # champ1.show()
         
-         # création du gestionnaire de mise en forme
+        # front display: display in horizontal
+        hLayout = QHBoxLayout()
+        # add widgets needed to displayed
+        hLayout.addWidget(self.firstCurrency)
+        hLayout.addWidget(comboCurrencyLeft)
+        hLayout.addWidget(self.secundCurrency)
+        hLayout.addWidget(comboCurrencyRight)
         
-        vLayout = QVBoxLayout()
-        # ajout de la case à cocher au gestionnaire de mise en forme
-        vLayout.addWidget(self.firstCurrency)
-        vLayout.addWidget(comboCurrencyLeft)
-        vLayout.addWidget(self.secundCurrency)
-        vLayout.addWidget(comboCurrencyRight)
-        # on fixe le gestionnaire de mise en forme de la fenêtre
-        self.setLayout(vLayout)
+        self.setLayout(hLayout)
 
         # création de l'étiquette
         self.label = QLabel()
@@ -55,19 +56,16 @@ class Converter(QWidget):
         # création de l'étiquette
         self.label1 = QLabel()
 
-        comboCurrencyLeft.move(50, 50)
-        comboCurrencyRight.move(200, 50)
-
-        self.setGeometry(1000, 600, 1000, 600)
-
-        self.setWindowTitle('Currency Converter')
+    
+        self.setGeometry(500, 300, 500, 300)
+        
         self.show()
 
 app = QApplication.instance() 
 if not app:
     app = QApplication(sys.argv)
     
-currency = Converter()
-currency.show()
+    currency = Converter()
+    currency.show()
 
 app.exec_()
