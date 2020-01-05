@@ -28,8 +28,8 @@ class Converter(QWidget):
         # front display: display in horizontal
         layout = QHBoxLayout()
         # add widgets needed to displayed
-        layout.addWidget(self.activecurrenciesleft)
-        layout.addWidget(self.activecurrenciesright)
+        # layout.addWidget(self.activecurrenciesleft)
+        # layout.addWidget(self.activecurrenciesright)
         layout.addWidget(self.currenciesleft)
         layout.addWidget(self.firstcurrency)
         layout.addWidget(self.currenciesright)
@@ -44,6 +44,7 @@ class Converter(QWidget):
             # add current currency to checkbox
             self.currenciesleft.addItem(key)
             self.currenciesright.addItem(key)
+
         self.currenciesleft.setGeometry(50, 50, 50, 50)
         self.currenciesright.setGeometry(50, 50, 50, 50)
 
@@ -59,13 +60,13 @@ class Converter(QWidget):
         self.setGeometry(500, 300, 500, 300)
         self.show()
 
-    def onchangedcurrenciesleft(self, text):  # c
+    def onchangedcurrenciesleft(self, text):
         self.activecurrenciesleft = text
 
-    def onchangedcurrenciesright(self, text):  # d
+    def onchangedcurrenciesright(self, text):
         self.activecurrenciesright = text
 
-    def onchangedfirstcurrency(self, text):  # a
+    def onchangedfirstcurrency(self, text):
         cc = CurrencyConverter()
         self.firstcurrency.setText(text)
         self.firstcurrency.adjustSize()
@@ -75,7 +76,7 @@ class Converter(QWidget):
         self.secoundcurrency.setText(value)
         self.secoundcurrency.adjustSize()
 
-    def onchangedsecoundcurrency(self, text):  # b
+    def onchangedsecoundcurrency(self, text):
         cc = CurrencyConverter()
         self.secoundcurrency.setText(text)
         self.secoundcurrency.adjustSize()
